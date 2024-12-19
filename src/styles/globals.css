@@ -189,3 +189,7 @@ display: grid;
     background: none;
     cursor: e-resize;
 }
+
+:focus-visible {
+  outline: none;
+}
