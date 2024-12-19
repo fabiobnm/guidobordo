@@ -1,25 +1,56 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Sidebar = () => {
+  const router = useRouter(); // Ottieni il percorso attuale
+
   return (
     <aside style={styles.sidebar}>
       <ul style={styles.ul}>
         {/* Guido Borso a sinistra */}
         <li style={styles.left}>
-          <Link href="/" style={styles.linkHome}>Guido Borso</Link>
+          <Link href="/" style={router.pathname === '/' ? styles.linkHome : styles.linkHome}>
+            Guido Borso
+          </Link>
         </li>
 
         {/* Works, Commissions, Educational al centro */}
         <div style={styles.centerContainer}>
-          <li><Link href="/works" style={styles.link}>Works</Link></li>
-          <li><Link href="/commissions" style={styles.link}>Commissions</Link></li>
-          <li><Link href="/educational" style={styles.link}>Educational</Link></li>
+          <li>
+            <Link 
+              href="/works2"
+              style={router.pathname === '/works2' ? styles.activeLink : styles.link}
+            >
+              Works
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/commissions"
+              style={router.pathname === '/commissions' ? styles.activeLink : styles.link}
+            >
+              Commissions
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/educational"
+              style={router.pathname === '/educational' ? styles.activeLink : styles.link}
+            >
+              Educational
+            </Link>
+          </li>
         </div>
 
         {/* About a destra */}
         <li style={styles.right}>
-          <Link href="/about" style={styles.linkAbout}>about</Link>
+          <Link
+            href="/about"
+            style={router.pathname === '/about' ? styles.activeLink : styles.linkAbout}
+          >
+            about
+          </Link>
         </li>
       </ul>
     </aside>
@@ -45,16 +76,16 @@ const styles = {
     width: '100%',
   },
   left: {
-    marginRight: 'auto', // Spinge gli altri elementi verso destra
+    marginRight: 'auto',
   },
   centerContainer: {
     display: 'flex',
-    gap: '20px', // Spazio tra i link centrali
-    justifyContent: 'center', // Centra gli elementi orizzontalmente
-    flexGrow: 1, // Occupa spazio aggiuntivo per centrare il contenuto
+    gap: '20px',
+    justifyContent: 'center',
+    flexGrow: 1,
   },
   right: {
-    marginLeft: 'auto', // Spinge "about" verso l'estrema destra
+    marginLeft: 'auto',
   },
   linkHome: {
     display: 'block',
@@ -76,6 +107,15 @@ const styles = {
     textDecoration: 'none',
     color: 'black',
     fontSize: '28px',
+  },
+  activeLink: {
+    display: 'block',
+    padding: '5px 20px',
+    textDecoration: 'none',
+    color:'black', // Colore rosso per il link attivo
+    fontSize: '28px',
+    fontWeight: 'bold',
+    borderBottom:'2px solid' // Opzionale: rende il link più visibile
   },
 };
 
