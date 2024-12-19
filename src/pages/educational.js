@@ -2,6 +2,8 @@ import { useQuery } from '@apollo/client';
 import client from '../lib/apolloClient';
 import { GET_POSTSEduc } from '../lib/queries';
 import Sidebar from '../components/Sidebar'; 
+import NewsButt from '../components/tastoNews';
+
 
 export default function Home() {
   const { loading, error, data } = useQuery(GET_POSTSEduc, { client });
@@ -52,6 +54,7 @@ export default function Home() {
       </div>
       
       <Sidebar />
+      <NewsButt />
     </main>
   );
 }
