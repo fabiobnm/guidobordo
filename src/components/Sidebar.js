@@ -1,12 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Sidebar = () => {
   const router = useRouter(); // Ottieni il percorso attuale
+  const [isVisible, setIsVisible] = useState(true); // Stato per la visibilità
+  const [lastScrollPos, setLastScrollPos] = useState(0); // Ultima posizione di scroll
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+
+      if (currentScrollPos > lastScrollPos && currentScrollPos > 50) {
+        // Nascondi quando si scrolla verso il basso
+        setIsVisible(false);
+      } else {
+        // Mostra quando si scrolla verso l'alto
+        setIsVisible(true);
+      }
+
+      setLastScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollPos]);
 
   return (
-    <aside style={styles.sidebar}>
+    <aside
+      style={{
+        ...styles.sidebar,
+        top: isVisible ? '0' : '-100px', // Nascondi mostrando fuori schermo
+        transition: 'top 0.3s ease-in-out', // Animazione fluida
+      }}
+    >
       <ul style={styles.ul}>
         {/* Guido Borso a sinistra */}
         <li style={styles.left}>
@@ -65,7 +95,8 @@ const styles = {
     paddingRight: '45px',
     paddingTop: '20px',
     position: 'fixed',
-    top: '0%',
+    top: '0%', // Modificato dinamicamente
+    zIndex: 10,
   },
   ul: {
     listStyleType: 'none',
@@ -112,10 +143,10 @@ const styles = {
     display: 'block',
     padding: '5px 20px',
     textDecoration: 'none',
-    color:'black', // Colore rosso per il link attivo
+    color: 'black',
     fontSize: '28px',
     fontWeight: 'bold',
-    borderBottom:'2px solid' // Opzionale: rende il link più visibile
+    borderBottom: '2px solid',
   },
 };
 
