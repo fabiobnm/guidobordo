@@ -462,6 +462,36 @@ list-style-type: none;
   width: 50%;
 }
 
+.cardWorkshops {
+  perspective: 1000px; /* Effetto 3D */
+  width: 400px; /* Adatta alla dimensione dell'immagine */
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.cardWorkshops:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Nasconde il lato posteriore quando non è girato */
+}
+
+.card-back {
+  transform: rotateY(180deg); /* Parte girata di default */
+}
+
+
 /* Media query per smartphone (max-width 768px)  ////////////////////////////////////////////////////////////////////////
  //////////////////////////////////////////////////////////////////////// ////////////////////////////////////////////////////////////////////////
  

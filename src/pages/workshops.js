@@ -27,18 +27,27 @@ export default function Home() {
         {data.workshops[0].educational.map((progetto) => (
            <div>
           
-          <div style={{marginTop:'50px'}} className="cardWorkshops" key={progetto.id}>
-            <div >
-              {/* Lato frontale */}
-                <img 
-                  style={{ height: '400px' }} 
-                  src={progetto.copertina.url} 
-                  alt={progetto.nome} 
-                />
-             
-            </div>
-           
-          </div>
+          <div className="cardWorkshops" key={progetto.id}>
+  <div className="card-inner">
+    {/* Lato frontale */}
+    <div className="card-front">
+      <img 
+        style={{  width: '100%' }} 
+        src={progetto.copertina.url} 
+        alt={progetto.nome} 
+      />
+    </div>
+    
+    {/* Lato posteriore */}
+    <div className="card-back">
+      <img 
+        style={{ height: '400px', width: '100%' }} 
+        src={progetto.retro.url} 
+        alt={`${progetto.nome} Retro`} 
+      />
+    </div>
+  </div>
+</div>
           </div>
         ))}
 
