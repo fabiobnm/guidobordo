@@ -44,9 +44,9 @@ export default function Home() {
           </Draggable>
         ))}
       </div>
-
+      <Draggable>
       <img style={{ zIndex: 99, width: '110px', position: 'fixed', bottom: 0, left: '-50px' }} src='TARTA.png' />
-
+</Draggable>
       <Sidebar />
     </main>
   );

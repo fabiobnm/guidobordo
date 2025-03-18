@@ -129,7 +129,7 @@ const Sidebar = () => {
 
             <li>
              
-             <Link  style={{color:'black',fontSize:'20px'}} href="/dailydose2025" >ongoing</Link>
+             <Link  style={{color:'black',fontSize:'20px'}} href="" ></Link>
            </li>
             <li>
              

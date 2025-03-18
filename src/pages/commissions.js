@@ -21,23 +21,24 @@ console.log('cicici'+ data.commissions[0].infoWork.html);
 
   return (
     <main style={{ marginTop: '75px' }}>
-      <div style={{display:'flex', overflowX:'scroll', width:'auto', marginLeft:'50px', marginTop:'150px'}}>
+      <div className='commissionsDiv'>
       {data.commissions.map((commissions) => (
         <div key={commissions.id}>
               <img
-                src={commissions.immagine.url}
-                style={{ height:'60vH',width: 'auto', objectFit: 'cover',marginRight:'30px'}}
+                className='imgCommission'
+                src={commissions.immagine.url}              
                 onMouseEnter={() => setHoverText(commissions.infoWork?.html)} // Cambia il testo quando passi sopra
                 onMouseLeave={() => setHoverText(" ")} // Ripristina il testo originale quando esci
             
             />
            
+           <div className='commissionTextMobile' style={{width:'50%', color:'black',margin:'45px'}} dangerouslySetInnerHTML={{ __html: commissions.infoWork?.html }}></div>
         
         </div>
       ))}
      
       </div>
-      <div style={{width:'50%', color:'black',margin:'45px'}} dangerouslySetInnerHTML={{ __html: hoverText }}></div>
+      <div className='commissionTextDesktop'  style={{width:'50%', color:'black',margin:'45px'}} dangerouslySetInnerHTML={{ __html: hoverText }}></div>
 
       <Sidebar />
     </main>
