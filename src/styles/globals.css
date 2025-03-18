@@ -166,7 +166,7 @@ display: grid;
   height: 60vh;
     width: auto;
     object-fit: cover;
-    margin-right: 30px;
+    margin-right: 15px;
 }
 .sottoTitoloDaily{
   color:black;
@@ -493,6 +493,9 @@ list-style-type: none;
     padding-bottom:0;
     font-size:40px;
     line-height: 1;
+  }
+  .imageHome{
+    width: 80vW;
   }
 
   .commissionsDiv{

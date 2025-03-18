@@ -79,8 +79,8 @@ const Sidebar = () => {
 
     <li>
       <Link className='vociMenuHeader'
-        href="/educational"
-        style={router.pathname === "/educational" ? styles.activeLink : styles.link}
+        href="/workshops"
+        style={router.pathname === "/workshops" ? styles.activeLink : styles.link}
       >
         Workshops
       </Link>
@@ -124,7 +124,7 @@ const Sidebar = () => {
            
             <li style={{marginBottom:'20px'}}>
              
-              <Link  style={{color:'black',fontSize:'20px'}} href="/educational" >Workshop</Link>
+              <Link  style={{color:'black',fontSize:'20px'}} href="/workshops" >Workshop</Link>
             </li>
 
             <li>
