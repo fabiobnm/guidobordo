@@ -167,6 +167,24 @@ export const GET_POSTSEduc = gql`
   `;
 
 
+
+export const GET_POSTSEducNew = gql`
+query {
+    workshops{
+     text{html}
+     educational{
+       ... on Educational{
+         copertina{url}
+         retro{url}
+       }
+     }
+   }
+     }
+
+`;
+
+
+
 export const GET_POSTS2 = gql`
   query {
     progettis {

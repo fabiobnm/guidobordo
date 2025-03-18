@@ -34,8 +34,8 @@ export default function Home() {
             onClick={handleClick}
             style={{
               position: 'fixed',
-              marginTop: `${index * 60}px`,
-              right: `${(index + 1) * 60}px`,
+              marginTop: `${Math.random() * 270}px`,
+              right: `${Math.random() * 700}px`,
               zIndex: index, // Usa l'indice iniziale
               transition: 'z-index 0.2s ease-in-out',
               cursor: 'pointer',
