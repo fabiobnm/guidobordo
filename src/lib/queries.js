@@ -6,16 +6,101 @@ export const GET_POSTS = gql`
       id
       nome
       info
-      cover {
-        id
-        url
-      }
+      
       galleria(first: 100) {
         url
       }
     }
   }
 `;
+
+export const GET_POSTSOrdine = gql`
+  query {
+ ordineDeiWorks{
+  id
+  works(first:100){
+    ... on Progetti{
+      nome
+      galleria(first:100){
+        url
+      }
+    }
+  }
+}
+}
+`;
+
+export const GET_POSTSCommissions = gql`
+query {
+  commissions{
+    id
+    info
+    immagine{url}
+  }
+  }
+`;
+
+
+
+
+export const GET_POSTSAbout = gql`
+query {
+  abouts {
+    biography{
+    html}
+    cv{
+    html}
+    immagine{
+      url
+    }
+  }
+}
+`;
+
+export const GET_POSTSHomePage = gql`
+query{
+  homePages{
+    cover{url}
+  }
+}
+`;
+
+
+export const GET_POSTSDailyDose2025DEF = gql`
+  query {
+   dailyDose2025S {
+     id
+    gallery(first: 370, orderBy: id_DESC){
+      id
+      
+        url
+      
+      
+    }
+   }  
+}
+`;
+
+export const GET_POSTSDailyDose2025 = gql`
+  query {
+   dailyDose2025S {
+     id
+    post(first: 370, orderBy: id_DESC){
+      id
+      foto{
+        url
+        
+      }
+      gallery{
+      url
+      }
+      testo
+      
+    }
+   }  
+}
+`;
+
 export const GET_POSTSToday = gql`
 query MyQuery {
   progetti(where: {id: "cm2kk8clmkobm07l6qhrydbxa"}) {

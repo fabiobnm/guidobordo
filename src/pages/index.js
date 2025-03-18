@@ -2,8 +2,7 @@ import { useQuery } from '@apollo/client';
 import client from '../lib/apolloClient';
 import { GET_POSTSHome } from '../lib/queries';
 import Sidebar from '../components/Sidebar';
-import NewsButt from '../components/tastoNews';
-
+import Draggable from 'react-draggable';
 
 
 export default function Home() {
@@ -11,36 +10,44 @@ export default function Home() {
 
   if (loading) return <p>Loading...</p>;
   if (error) {
-    alert('err')
-    console.log('ciaoooo')
-    console.log(data)
-    
     console.error('Errore nella query:', error.message);
-    console.error('Dettagli dell\'errore:', error.graphQLErrors);
-    console.error('Dettagli della risposta:', error.networkError);
     return <p>Error: {error.message}</p>;
   }
 
-  console.log('Dati ricevuti:', data);
+  console.log('Dati ricevuti:', data.homePages[0].cover);
+
+  const handleClick = (event) => {
+    const img = event.target;
+    const currentZIndex = parseInt(img.style.zIndex, 10) || 0;
+    img.style.zIndex = currentZIndex + 4; // Incrementa lo zIndex direttamente
+  };
 
   return (
-    <main style={{marginTop:'125px',background:''}}>
-      <h1>dghkj</h1>
-      {data.homePages.map((cover) => (
-        <div style={{height:'auto', margin:'0px'}} key={cover.id}>
-          <h1>dfgkjdh</h1>
-            <img
-                src={cover.url}
-                style={{  width: '150px',height:'fit-content', margin:'auto',marginRight : '15px' }} // Stile per le immagini della galleria
-            />       
+    <main style={{ marginTop: '0px' }}>
+      <div className="boxImageHome">
+        {data.homePages[0].cover.map((cover, index) => (
+         <Draggable>
+         <img
+            className="imageHome"
+            key={cover.id}
+            src={cover.url}
+            onClick={handleClick}
+            style={{
+              position: 'fixed',
+              marginTop: `${index * 60}px`,
+              right: `${(index + 1) * 60}px`,
+              zIndex: index, // Usa l'indice iniziale
+              transition: 'z-index 0.2s ease-in-out',
+              cursor: 'pointer',
+            }}
+          />
+          </Draggable>
+        ))}
+      </div>
 
-        </div>
-      ))}
-
+      <img style={{ zIndex: 99, width: '110px', position: 'fixed', bottom: 0, left: '-50px' }} src='TARTA.png' />
 
       <Sidebar />
-      <NewsButt />
     </main>
   );
 }
-

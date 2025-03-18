@@ -1,29 +1,54 @@
-import { useState } from 'react';
+import { useState , useEffect  } from 'react';
 import { useQuery } from '@apollo/client';
 import client from '../lib/apolloClient';
-import { GET_POSTS } from '../lib/queries';
+import { GET_POSTS, GET_POSTSOrdine } from '../lib/queries';
 import Sidebar from '../components/Sidebar';
-import NewsButt from '../components/tastoNews';
-
-import Modal from 'react-modal';
-
-
-// Configura React Modal per accessibilità
-Modal.setAppElement('#__next');
+import { useSpring, animated } from '@react-spring/web';
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_POSTS, { client });
+  const { loading, error, data } = useQuery(GET_POSTSOrdine, { client });
 
   // Stato per il Modal e il carosello
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentGallery, setCurrentGallery] = useState([]);
 
+  // Animazione per il modal
+  const modalAnimation = useSpring({
+    opacity: isModalOpen ? 1 : 0,
+    transform: isModalOpen ? 'scale(1)' : 'scale(0.8)',
+    config: { tension: 300, friction: 25 },
+  });
+
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (isModalOpen) {
+        if (event.key === 'ArrowRight') {
+          navigateCarousel(1); // Freccia destra -> avanti
+        } else if (event.key === 'ArrowLeft') {
+          navigateCarousel(-1); // Freccia sinistra -> indietro
+        } else if (event.key === 'Escape') {
+          closeModal(); // Esci dal modal con ESC
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isModalOpen, currentImageIndex, currentGallery]);
+
+
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.error('Errore nella query:', error.message);
     return <p>Error: {error.message}</p>;
   }
+
+  console.log('datelli'+ data.ordineDeiWorks[0].works[0].nome);
+  
 
   const openModal = (gallery, index) => {
     setCurrentGallery(gallery);
@@ -45,13 +70,10 @@ export default function Home() {
   };
 
   return (
-    <main style={{ marginTop: '125px' }}>
-      {data.progettis.map((progetto) => (
-        <div
-          style={{ height: 'auto', margin: '0px', paddingLeft: '45px', paddingRight: '45px' }}
-          key={progetto.id}
-        >
-          <h1 style={{ color: 'black', fontSize: '28px', textAlign: 'center', padding: '50px' }}>
+    <main style={{ marginTop: '75px' }}>
+      {data.ordineDeiWorks[0].works.map((progetto) => (
+        <div className="projectDivWork" key={progetto.id}>
+          <h1 style={{ color: 'black', fontSize: '20px', padding: '50px', paddingLeft: '0', fontFamily:'MyFontThin' }}>
             {progetto.nome}
           </h1>
 
@@ -83,31 +105,31 @@ export default function Home() {
 
       <Sidebar />
 
-      <NewsButt />
-
-      {/* Modal per il carosello */}
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Image Carousel"
-        className="modal-content"
-        overlayClassName="modal-overlay"
-      >
-        <button className="close-btn" onClick={closeModal}>
-          ✖
-        </button>
-        <button className="nav-btn prev-btn" onClick={() => navigateCarousel(-1)}>
-          
-        </button>
-        <img
-          src={currentGallery[currentImageIndex]?.url}
-          alt={`Carousel Image ${currentImageIndex}`}
-          className="carousel-image"
-        />
-        <button className="nav-btn next-btn" onClick={() => navigateCarousel(1)}>
-          
-        </button>
-      </Modal>
+      {/* Modal con animazione */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <animated.div
+            style={modalAnimation}
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()} // Impedisce la chiusura cliccando sul contenuto
+          >
+            <button className="close-btn" onClick={closeModal}>
+              
+            </button>
+            <button className="nav-btn prev-btn" onClick={() => navigateCarousel(-1)}>
+              
+            </button>
+            <img
+              src={currentGallery[currentImageIndex]?.url}
+              alt={`Carousel Image ${currentImageIndex}`}
+              className="carousel-image"
+            />
+            <button className="nav-btn next-btn" onClick={() => navigateCarousel(1)}>
+              
+            </button>
+          </animated.div>
+        </div>
+      )}
     </main>
   );
 }

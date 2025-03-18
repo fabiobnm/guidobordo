@@ -6,7 +6,18 @@ const Sidebar = () => {
   const router = useRouter(); // Ottieni il percorso attuale
   const [isVisible, setIsVisible] = useState(true); // Stato per la visibilità
   const [lastScrollPos, setLastScrollPos] = useState(0); // Ultima posizione di scroll
+  const [hoverText, setHoverText] = useState("Commissions"); // Stato per gestire il testo
+  const [hoverText2, setHoverText2] = useState("Workshop"); // Stato per gestire il testo
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Stato per il menu mobile
 
+  function getRandomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  }
+
+   // Imposta il colore random solo al primo montaggio
+   useEffect(() => {
+    document.documentElement.style.setProperty('--random-color', getRandomColor());
+  }, []);
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
@@ -14,6 +25,7 @@ const Sidebar = () => {
       if (currentScrollPos > lastScrollPos && currentScrollPos > 50) {
         // Nascondi quando si scrolla verso il basso
         setIsVisible(false);
+        setIsMobileMenuOpen(false)
       } else {
         // Mostra quando si scrolla verso l'alto
         setIsVisible(true);
@@ -30,17 +42,16 @@ const Sidebar = () => {
   }, [lastScrollPos]);
 
   return (
-    <aside
+    <aside className='asideHeader'
       style={{
-        ...styles.sidebar,
         top: isVisible ? '0' : '-100px', // Nascondi mostrando fuori schermo
         transition: 'top 0.3s ease-in-out', // Animazione fluida
       }}
     >
-      <ul style={styles.ul}>
+      <ul className='headerDesktop' >
         {/* Guido Borso a sinistra */}
         <li style={styles.left}>
-          <Link href="/" style={router.pathname === '/' ? styles.linkHome : styles.linkHome}>
+          <Link className='vociMenuHeader' id='guidoBold' href="/" style={router.pathname === '/' ? styles.linkHome : styles.linkHome}>
             Guido Borso
           </Link>
         </li>
@@ -48,41 +59,86 @@ const Sidebar = () => {
         {/* Works, Commissions, Educational al centro */}
         <div style={styles.centerContainer}>
           <li>
-            <Link 
+            <Link className='vociMenuHeader'
               href="/works2"
               style={router.pathname === '/works2' ? styles.activeLink : styles.link}
             >
               Works
             </Link>
           </li>
-          <li>
-            <Link
-              href="/commissions"
-              style={router.pathname === '/commissions' ? styles.activeLink : styles.link}
-            >
-              Commissions
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/educational"
-              style={router.pathname === '/educational' ? styles.activeLink : styles.link}
-            >
-              Educational
-            </Link>
-          </li>
+          <li
+     
+    >
+      <Link className='vociMenuHeader'
+        href="/commissions"
+        style={router.pathname === "/commissions" ? styles.activeLink : styles.link}
+      >
+        Commissions
+      </Link>
+    </li>
+
+    <li>
+      <Link className='vociMenuHeader'
+        href="/educational"
+        style={router.pathname === "/educational" ? styles.activeLink : styles.link}
+      >
+        Workshops
+      </Link>
+    </li>
+   
         </div>
 
         {/* About a destra */}
         <li style={styles.right}>
-          <Link
+          <Link className='vociMenuHeader'
             href="/about"
-            style={router.pathname === '/about' ? styles.activeLink : styles.linkAbout}
+            style={router.pathname === '/about' ? styles.activeLinkAbout : styles.linkAbout}
           >
-            about
+            About
           </Link>
         </li>
       </ul>
+
+      <div className="headerMobile">
+        <Link href="/" style={styles.linkHome}>Guido Borso</Link>
+        
+
+        {/* Bottone per aprire/chiudere il menu */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          style={{color:'black'}}
+        >
+          {isMobileMenuOpen ? '-' : '+'}
+        </button>
+
+        {/* Mostra/Nasconde il menu mobile */}
+        {isMobileMenuOpen && (
+          <ul className="menuOpenMobile" style={styles.mobileMenu}>
+            <li >
+              
+              <Link  style={{color:'black',fontSize:'20px'}} href="/works2">Works</Link>
+            </li>
+            <li>
+              <Link  style={{color:'black',fontSize:'20px'}} href="/commissions" >Commissions</Link>
+            </li>
+           
+            <li style={{marginBottom:'20px'}}>
+             
+              <Link  style={{color:'black',fontSize:'20px'}} href="/educational" >Workshop</Link>
+            </li>
+
+            <li>
+             
+             <Link  style={{color:'black',fontSize:'20px'}} href="/dailydose2025" >ongoing</Link>
+           </li>
+            <li>
+             
+             <Link  style={{color:'black',fontSize:'20px'}} href="/about" >about</Link>
+           </li>
+           
+          </ul>
+        )}
+      </div>
     </aside>
   );
 };
@@ -111,7 +167,6 @@ const styles = {
   },
   centerContainer: {
     display: 'flex',
-    gap: '20px',
     justifyContent: 'center',
     flexGrow: 1,
   },
@@ -120,34 +175,43 @@ const styles = {
   },
   linkHome: {
     display: 'block',
-    padding: '5px 0px',
+    padding: '5px 0px 0px',
     textDecoration: 'none',
     color: 'black',
-    fontSize: '28px',
+    fontSize: '20px',
   },
   link: {
     display: 'block',
-    padding: '5px 20px',
+    padding: '5px 20px 0px',
     textDecoration: 'none',
     color: 'black',
-    fontSize: '28px',
+    fontSize: '20px',
   },
   linkAbout: {
     display: 'block',
-    padding: '5px 0px',
+    padding: '5px 0px 0px 20px',
     textDecoration: 'none',
     color: 'black',
-    fontSize: '28px',
+    fontSize: '20px',
   },
   activeLink: {
     display: 'block',
-    padding: '5px 20px',
+    padding: '5px 20px 0px' ,
     textDecoration: 'none',
     color: 'black',
-    fontSize: '28px',
-    fontWeight: 'bold',
-    borderBottom: '2px solid',
+    fontSize: '20px',
+    borderBottom: '1px solid',
   },
+  activeLinkAbout: {
+    display: 'block',
+    padding: '5px 0px 0px 20px' ,
+    textDecoration: 'none',
+    color: 'black',
+    fontSize: '20px',
+    borderBottom: '1px solid',
+  },
+
+ 
 };
 
 export default Sidebar;
