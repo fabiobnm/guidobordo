@@ -476,7 +476,7 @@ list-style-type: none;
   .imgAbout{
     color: black;
     width: 100%;
-    height: fit-content;
+    height: auto;
     position: relative;
   }
   .projectDivWork{
@@ -508,9 +508,11 @@ list-style-type: none;
     margin-left: 0px;
   }
   .aboutText{
-    width: 50%;
+    width: 100%;
     color: black;
-    margin: 45px;
+    padding: 45px;
+    margin: 0;
+
   }
   .pAbout{
     color: black;
