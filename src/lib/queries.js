@@ -34,8 +34,8 @@ export const GET_POSTSCommissions = gql`
 query {
   commissions{
     id
-    info
     immagine{url}
+    infoWork{html}
   }
   }
 `;

@@ -60,8 +60,8 @@ const Sidebar = () => {
         <div style={styles.centerContainer}>
           <li>
             <Link className='vociMenuHeader'
-              href="/works2"
-              style={router.pathname === '/works2' ? styles.activeLink : styles.link}
+              href="/works"
+              style={router.pathname === '/works' ? styles.activeLink : styles.link}
             >
               Works
             </Link>
@@ -116,7 +116,7 @@ const Sidebar = () => {
           <ul className="menuOpenMobile" style={styles.mobileMenu}>
             <li >
               
-              <Link  style={{color:'black',fontSize:'20px'}} href="/works2">Works</Link>
+              <Link  style={{color:'black',fontSize:'20px'}} href="/works">Works</Link>
             </li>
             <li>
               <Link  style={{color:'black',fontSize:'20px'}} href="/commissions" >Commissions</Link>
