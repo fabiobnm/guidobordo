@@ -32,7 +32,7 @@ export const GET_POSTSOrdine = gql`
 
 export const GET_POSTSCommissions = gql`
 query {
-  commissions{
+  commissions(first:100){
     id
     immagine{url}
     infoWork{html}
