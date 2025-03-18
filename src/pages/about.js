@@ -26,21 +26,13 @@ export default function Home() {
     <main>
 
       <div className='divCommissions'>
-      <img style={{
-      color: 'black',
-      width: '25vw',
-      height:'fit-content',
-      position: 'relative',
-     }} src={ data.abouts[0].immagine.url}/>
-     <p style={{
-      color: 'black',
-      width: '35vw',
-      marginLeft:'30px',
-      position: 'relative',
-     }}> <div style={{width:'100%', color:'black',marginLeft:'45px'}} dangerouslySetInnerHTML={{ __html: data.abouts[0].biography.html }}></div></p>
+      <img className='imgAbout' 
+       src={ data.abouts[0].immagine.url}/>
+     <p className='pAbout'> 
+      <div className='aboutBio' dangerouslySetInnerHTML={{ __html: data.abouts[0].biography.html }}></div></p>
          
     </div>
-    <div style={{width:'50%', color:'black',margin:'45px'}} dangerouslySetInnerHTML={{ __html: data.abouts[0].cv.html }}></div>
+    <div className='aboutText' dangerouslySetInnerHTML={{ __html: data.abouts[0].cv.html }}></div>
 
 
 <Sidebar />
