@@ -52,7 +52,7 @@ const Sidebar = () => {
         {/* Guido Borso a sinistra */}
         <li style={styles.left}>
           <Link className='vociMenuHeader' id='guidoBold' href="/" style={router.pathname === '/' ? styles.linkHome : styles.linkHome}>
-            Guido Borso
+            <img style={{width:'80px'}} src='https://guidoborso.com/new/img/GuidoBorso.png'/>
           </Link>
         </li>
 
@@ -169,6 +169,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     flexGrow: 1,
+    marginRight:'5%',
   },
   right: {
     marginLeft: 'auto',

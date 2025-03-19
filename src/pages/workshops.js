@@ -22,10 +22,10 @@ export default function Home() {
   return (
     <main>
     <div className='textWorkshops'  dangerouslySetInnerHTML={{ __html: data.workshops[0].text.html }}></div>
-      <div className="educational" style={{ display: 'flex', marginTop: '0px' }}>
+      <div className="educational">
         
         {data.workshops[0].educational.map((progetto) => (
-           <div>
+         
           
           <div className="cardWorkshops" key={progetto.id}>
   <div className="card-inner">
@@ -48,7 +48,7 @@ export default function Home() {
     </div>
   </div>
 </div>
-          </div>
+          
         ))}
 
       </div>

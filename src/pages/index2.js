@@ -3,6 +3,8 @@ import client from '../lib/apolloClient';
 import { GET_POSTSHome } from '../lib/queries';
 import Sidebar from '../components/Sidebar';
 import Draggable from 'react-draggable';
+import Draggino from '@/components/draggino';
+
 
 
 export default function Home() {
@@ -24,29 +26,7 @@ export default function Home() {
 
   return (
     <main style={{ marginTop: '0px' }}>
-      <div className="boxImageHome">
-        {data.homePages[0].cover.map((cover, index) => (
-         <Draggable>
-          <div onClick={handleClick}
-              style={{
-              position: 'fixed',
-              marginTop: `${(index) *60}px`,
-              right: `${(index +1) * 60}px`,
-              zIndex: index, // Usa l'indice iniziale
-              transition: 'z-index 0.2s ease-in-out',
-              cursor: 'pointer',
-            }}>
-         <img
-            className="imageHome"
-            key={cover.id}
-            src={cover.url}
-           
-            
-          />
-          </div>
-          </Draggable>
-        ))}
-      </div>
+      <Draggino/>
 
       <img style={{ zIndex: 99, width: '110px', position: 'fixed', bottom: 0, left: '-50px' }} src='TARTA.png' />
 

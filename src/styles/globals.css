@@ -65,6 +65,7 @@ body {
 }
 
 #guidoBold{
+  font-size: 25px !important;
   font-family: 'MyFontBold';
 }
 @layer utilities {
@@ -72,6 +73,33 @@ body {
     text-wrap: balance;
   }
 }
+
+
+/* index.css */
+.draggable-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.draggable-box {
+  width: 200px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move; /* Change cursor to indicate draggable item */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+}
+.imageHome {
+  user-select: none; /* Evita la selezione */
+  pointer-events: none; /* Evita interazioni con il mouse */
+  -webkit-user-drag: none; /* Disabilita il trascinamento su browser WebKit */
+}
+
 
 .commissionTextMobile{
 display: none;
@@ -179,14 +207,14 @@ display: grid;
 
 .educational{
   display: flex;
-    margin-top: 300px;
+    margin-top: 0px;
     gap: 76px;
-    padding-left: 45px;
+    padding-left: 0;
 }
 
 .educational {
-  display: flex;
-  flex-wrap: wrap; /* Per permettere il wrapping degli elementi */
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
   gap: 20px; /* Spaziatura tra le card */
   justify-content: center; /* Centrare le card */
 }
@@ -205,7 +233,7 @@ display: grid;
 .cardWorkshops{
   perspective: 1000px; /* Necessario per l'effetto 3D */
   width: 700px; /* Larghezza della card */
-  height: 700px; /* Altezza della card */
+  height: 50vH; /* Altezza della card */
 }
 
 .dailyPost{
@@ -410,7 +438,8 @@ list-style-type: none;
   background-color: white;
   padding-left: 45px;
   padding-right: 45px;
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
   position: fixed;
   top: 0px;
   z-index: 10;
@@ -438,6 +467,7 @@ list-style-type: none;
     margin: 12vh 100px 0px;
     display: flex;
     transform: translateY(-50%);
+   
 }
 
 .divCommissions{
